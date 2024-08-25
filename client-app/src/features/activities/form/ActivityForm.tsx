@@ -1,18 +1,15 @@
 import { ChangeEvent, useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import { Activity } from "../../../app/models/activity";
 import LoadingButton from '@mui/lab/LoadingButton'
 import SendIcon from "@mui/icons-material/Send"
-
-interface Props {
-    activity: Activity | undefined;
-    closeForm: () => void;
-    createorEdit: (activity: Activity) => void;
-    submitting: boolean;
-}
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
 
-export default function ActivityForm({ activity: selectedActivity, closeForm, createorEdit, submitting }: Props) {
+export default observer(function ActivityForm() {
+
+    const { activityStore } = useStore();
+    const { selectedActivity, closeForm, createActivity, updateActivity, loading } = activityStore
 
     const initialState = selectedActivity ?? {
         id: '',
@@ -29,7 +26,7 @@ export default function ActivityForm({ activity: selectedActivity, closeForm, cr
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        createorEdit(activity);
+        activity.id ? updateActivity(activity) : createActivity(activity);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -102,10 +99,10 @@ export default function ActivityForm({ activity: selectedActivity, closeForm, cr
             </Box>
             <Box sx={{ display: 'flex', flexDirection: "row" }}>
                 <LoadingButton
-                    endIcon={<SendIcon />} loading={submitting} loadingPosition="end"
+                    endIcon={<SendIcon />} loading={loading} loadingPosition="end"
                     sx={{ flex: 1 }} variant="contained" type="submit" ><span>Submit</span></LoadingButton>
             </Box>
 
         </Box >
     )
-}
+})

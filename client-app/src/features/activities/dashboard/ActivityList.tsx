@@ -1,30 +1,26 @@
 import { Card, CardActions, CardContent, Button, Typography, Box } from '@mui/material/';
-import { Activity } from "../../../app/models/activity";
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton'
 import CloseIcon from '@mui/icons-material/Close';
 import { SyntheticEvent, useState } from 'react';
+import { useStore } from '../../../app/stores/store';
+import { observer } from 'mobx-react-lite';
 
 
-
-interface Props {
-    activities: Activity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-    submitting: boolean;
-
-}
-
-export default function ActivityList({ activities, selectActivity, deleteActivity, submitting }: Props) {
+export default observer(function ActivityList() {
+    const { activityStore } = useStore();
     const [target, setTarget] = useState('');
+    const { deleteActivity, activitiesByDate, loading } = activityStore;
 
+    
     function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
         setTarget(e.currentTarget.name);
         deleteActivity(id);
     }
+
     return (
         <Box sx={{ width: '100%' }}>
-            {activities.map(activity => (
+            {activitiesByDate.map(activity => (
                 <Card key={activity.id} sx={{ mb: 0, border: '.10rem solid lightgrey' }}>
                     <CardContent sx={{ m: 0, pb: 0 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -33,7 +29,7 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                             </Typography>
                             <LoadingButton
                                 name={activity.id}
-                                loading={submitting && target === activity.id}
+                                loading={loading && target === activity.id}
                                 onClick={(e) => handleActivityDelete(e, activity.id)}
                                 variant="outlined" color="error" size="small"
                                 sx={{
@@ -70,9 +66,9 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                         >
                             {activity.category}
                         </Button>
-                        <Button onClick={() => selectActivity(activity.id)} sx={{ paddingLeft: '3em' }} variant="contained" endIcon={<SendIcon />}>View</Button>
+                        <Button onClick={() => activityStore.selectActivity(activity.id)} sx={{ paddingLeft: '3em' }} variant="contained" endIcon={<SendIcon />}>View</Button>
                     </CardActions>
                 </Card>
             ))}
         </Box>)
-}
+})

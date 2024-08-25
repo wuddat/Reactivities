@@ -1,16 +1,15 @@
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box } from '@mui/material/';
-import { Activity } from "../../../app/models/activity";
+import { useStore } from '../../../app/stores/store';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 
 
+export default function ActivityDetails() {
 
-interface Props {
-    activity: Activity;
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
+    const { activityStore } = useStore();
+    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
 
-}
+    if (!activity) return <LoadingComponent />;
 
-export default function ActivityDetails({ activity, cancelSelectActivity, openForm }: Props) {
     return (
         <Box sx={{ flex: 1 }}>
             <Card sx={{ mb: 3, border: '.10rem solid lightgrey', maxWidth: '100%' }}>
@@ -35,7 +34,7 @@ export default function ActivityDetails({ activity, cancelSelectActivity, openFo
                         onClick={() => openForm(activity.id)}
                         variant="outlined" sx={{ flex: 1, borderTopRightRadius: 0, borderBottomRightRadius: 0 }}>Edit</Button>
                     <Button
-                        onClick={cancelSelectActivity}
+                        onClick={cancelSelectedActivity}
                         variant="outlined" sx={{ flex: 1, color: "gray", borderColor: "gray", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }} >Cancel</Button>
                 </CardActions>
             </Card>
