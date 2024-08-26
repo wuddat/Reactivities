@@ -12,7 +12,7 @@ export default observer(function ActivityList() {
     const [target, setTarget] = useState('');
     const { deleteActivity, activitiesByDate, loading } = activityStore;
 
-    
+
     function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
         setTarget(e.currentTarget.name);
         deleteActivity(id);
@@ -66,7 +66,7 @@ export default observer(function ActivityList() {
                         >
                             {activity.category}
                         </Button>
-                        <Button onClick={() => activityStore.selectActivity(activity.id)} sx={{ paddingLeft: '3em' }} variant="contained" endIcon={<SendIcon />}>View</Button>
+                        <Button component='a' href={`/activities/${activity.id}`} sx={{ paddingLeft: '3em' }} variant="contained" endIcon={<SendIcon />}>View</Button>
                     </CardActions>
                 </Card>
             ))}

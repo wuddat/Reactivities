@@ -1,16 +1,22 @@
 import { Container } from "@mui/material";
 import ActivityList from "./ActivityList";
 import Grid from "@mui/material/Unstable_Grid2/";
-import ActivityDetails from "./ActivityDetails";
-import ActivityForm from "../form/ActivityForm";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 
 export default observer(function ActivityDashboard() {
-
     const { activityStore } = useStore();
-    const { selectedActivity, editMode, } = activityStore;
+    const { loadActivities, activityRegistry } = activityStore;
+
+    useEffect(() => {
+        if (activityRegistry.size <= 1) loadActivities();
+    }, [loadActivities, activityRegistry.size])
+
+    if (activityStore.loadingInitial) return <LoadingComponent content='Loading...' />
+
 
     return (
 
@@ -18,6 +24,7 @@ export default observer(function ActivityDashboard() {
             bgcolor: '#eee',
             display: 'flex',
             flexDirection: 'column',
+            pt: 5
 
         }}>
             <Grid container spacing={3}>
@@ -25,11 +32,7 @@ export default observer(function ActivityDashboard() {
                     <ActivityList />
                 </Grid>
                 <Grid xs>
-                    {selectedActivity && !editMode &&
-                        <ActivityDetails
-                        />}
-                    {editMode &&
-                        <ActivityForm />}
+                    <h2>Activity Filters</h2>
                 </Grid>
             </Grid>
         </Container >

@@ -1,20 +1,28 @@
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box } from '@mui/material/';
 import { useStore } from '../../../app/stores/store';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { observer } from 'mobx-react-lite';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
-export default function ActivityDetails() {
+export default observer(function ActivityDetails() {
 
     const { activityStore } = useStore();
-    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
+    const { selectedActivity: activity, loadActivity, loadingInitial } = activityStore;
+    const { id } = useParams();
 
-    if (!activity) return <LoadingComponent />;
+    useEffect(() => {
+        if (id) loadActivity(id);
+    }, [id, loadActivity])
+
+    if (loadingInitial || !activity) return <LoadingComponent />;
 
     return (
         <Box sx={{ flex: 1 }}>
             <Card sx={{ mb: 3, border: '.10rem solid lightgrey', maxWidth: '100%' }}>
                 <CardMedia
-                    sx={{ height: 150 }}
+                    sx={{ height: 500 }}
                     image={`/assets/categoryImages/${activity.category}.jpg`}
                     title="green iguana"
                 />
@@ -31,12 +39,12 @@ export default function ActivityDetails() {
                 </CardContent>
                 <CardActions disableSpacing sx={{ display: 'flex', flexDirection: 'row', p: 1, m: 0, borderTop: '.10rem solid lightgrey', }}>
                     <Button
-                        onClick={() => openForm(activity.id)}
+                        component='a' href={`/manage/${activity.id}`}
                         variant="outlined" sx={{ flex: 1, borderTopRightRadius: 0, borderBottomRightRadius: 0 }}>Edit</Button>
                     <Button
-                        onClick={cancelSelectedActivity}
+                        component='a' href='/activities'
                         variant="outlined" sx={{ flex: 1, color: "gray", borderColor: "gray", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }} >Cancel</Button>
                 </CardActions>
             </Card>
         </Box>)
-}
+})

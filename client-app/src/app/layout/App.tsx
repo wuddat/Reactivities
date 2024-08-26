@@ -1,30 +1,28 @@
-import { useEffect } from 'react'
 import '@fontsource/roboto/400.css';
 import NavBar from './NavBar';
-import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import { Container, CssBaseline, Box } from '@mui/material/';
-import LoadingComponent from './LoadingComponent';
-import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
+import { Outlet, useLocation } from 'react-router-dom';
+import HomePage from '../../features/home/HomePage';
 
 function App() {
-  const { activityStore } = useStore();
+  const location = useLocation();
 
-  useEffect(() => {
-    activityStore.loadActivities();
-  }, [activityStore])
-
-  if (activityStore.loadingInitial) return <LoadingComponent content='Loading...' />
-
-  return (<Box sx={{ bgcolor: '#eee', pb: 3 }}>
-    <CssBaseline />
-    <NavBar />
-    <Container maxWidth="xl">
-      <ActivityDashboard
-      />
-    </Container >
-  </Box>
-  )
+  return (
+    <>
+      {location.pathname === '/' ? <HomePage /> : (
+        <>
+          <Box sx={{ bgcolor: '#eee', pb: 3 }}>
+            <CssBaseline />
+            <NavBar />
+            <Container maxWidth="xl">
+              <Outlet />
+            </Container >
+          </Box>
+        </>
+      )}
+    </>
+  );
 }
 
 export default observer(App);
