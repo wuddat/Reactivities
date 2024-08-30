@@ -1,10 +1,14 @@
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box } from '@mui/material/';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid } from '@mui/material/';
 import { useStore } from '../../../app/stores/store';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import ActivityDetailedHeader from './ActivityDetailedHeader';
+import ActivityDetailedInfo from './ActivityDetailedInfo';
+import ActivityDetailedSidebar from './ActivityDetailedSidebar';
+import ActivityDetailedChat from './ActivityDetailedChat';
+import ActivityDetailedSubHeader from './ActivityDetailedSubHeader';
 
 export default observer(function ActivityDetails() {
 
@@ -19,32 +23,17 @@ export default observer(function ActivityDetails() {
     if (loadingInitial || !activity) return <LoadingComponent />;
 
     return (
-        <Box sx={{ flex: 1 }}>
-            <Card sx={{ mb: 3, border: '.10rem solid lightgrey', maxWidth: '100%' }}>
-                <CardMedia
-                    sx={{ height: 500 }}
-                    image={`/assets/categoryImages/${activity.category}.jpg`}
-                    title="green iguana"
-                />
-                <CardContent sx={{ m: 0, pb: 0 }}>
-                    <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
-                        {activity.title}
-                    </Typography>
-                    <Typography gutterBottom variant="body2" color="text.secondary">
-                        {activity.date}
-                    </Typography>
-                    <Typography variant="body2" sx={{ pt: 2, pb: 0, mb: 1 }}>
-                        {activity.description}
-                    </Typography>
-                </CardContent>
-                <CardActions disableSpacing sx={{ display: 'flex', flexDirection: 'row', p: 1, m: 0, borderTop: '.10rem solid lightgrey', }}>
-                    <Button
-                        component='a' href={`/manage/${activity.id}`}
-                        variant="outlined" sx={{ flex: 1, borderTopRightRadius: 0, borderBottomRightRadius: 0 }}>Edit</Button>
-                    <Button
-                        component='a' href='/activities'
-                        variant="outlined" sx={{ flex: 1, color: "gray", borderColor: "gray", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }} >Cancel</Button>
-                </CardActions>
-            </Card>
-        </Box>)
+        <Box>
+            <Grid container spacing={2}>
+                <Grid item xs={8}>
+                    <ActivityDetailedHeader activity={activity} />
+                    <ActivityDetailedSubHeader activity={activity} />
+                    <ActivityDetailedInfo activity={activity} />
+                    <ActivityDetailedChat activity={activity} />
+                </Grid>
+                <Grid item xs={4}>
+                    <ActivityDetailedSidebar activity={activity} />
+                </Grid>
+            </Grid>
+        </Box >)
 })
