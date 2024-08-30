@@ -1,4 +1,27 @@
-html,
 body {
-    background-color: #eee;
+    background: linear-gradient(to bottom right, #003d3d, #00ffff);
+}
+
+.react-calendar {
+    width: 100%;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #008080;
+}
+
+.react-calendar button {
+
+    border-bottom-color: teal;
+    border-left-color: teal;
+    border-right-color: teal;
+    border-top-color: teal;
+    border-right-color: hwb(0 0% 100%);
+
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: teal;
 }

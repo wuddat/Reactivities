@@ -1,10 +1,11 @@
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import ActivityList from "./ActivityList";
-import Grid from "@mui/material/Unstable_Grid2/";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ActivityFilters from "./ActivityFilters";
+
 
 
 export default observer(function ActivityDashboard() {
@@ -19,20 +20,15 @@ export default observer(function ActivityDashboard() {
 
 
     return (
-
         <Container sx={{
-            bgcolor: '#eee',
-            display: 'flex',
-            flexDirection: 'column',
-            pt: 5
-
+            bgcolor: '#eee'
         }}>
             <Grid container spacing={3}>
-                <Grid xs={8}>
+                <Grid item xs={8} >
                     <ActivityList />
                 </Grid>
-                <Grid xs>
-                    <h2>Activity Filters</h2>
+                <Grid item xs sx={{ mt: 7 }}>
+                    <ActivityFilters />
                 </Grid>
             </Grid>
         </Container >

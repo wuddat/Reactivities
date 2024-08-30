@@ -9,19 +9,22 @@ function App() {
   const location = useLocation();
 
   return (
-    <>
+    <Box sx={{
+      minHeight: '100vh', // Ensure the box spans the full viewport height
+      background: location.pathname === '/'
+        ? 'linear-gradient(to bottom right, #003d3d, #00ffff)' // Gradient for HomePage
+        : '#eee', // Background color for other pages>
+    }}>
       {location.pathname === '/' ? <HomePage /> : (
         <>
-          <Box sx={{ bgcolor: '#eee', pb: 3 }}>
-            <CssBaseline />
-            <NavBar />
-            <Container maxWidth="xl">
-              <Outlet />
-            </Container >
-          </Box>
+          <CssBaseline />
+          <NavBar />
+          <Container maxWidth="xl" sx={{ flex: 1 }}>
+            <Outlet />
+          </Container >
         </>
       )}
-    </>
+    </ Box>
   );
 }
 

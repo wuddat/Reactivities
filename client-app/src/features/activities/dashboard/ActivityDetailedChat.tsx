@@ -30,13 +30,13 @@ export default observer(function ActivityDetailedChat({ activity }: Props) {
             <Divider />
             <CardContent sx={{}}>
                 <Grid container >
-                    <Grid container xs={12} spacing={2} sx={{ border: '0px solid blue' }}>
+                    <Grid container spacing={2} sx={{ border: '0px solid blue' }}>
                         <Grid item xs={1} sx={{ border: '0px solid green' }}>
                             <Avatar sx={{ width: 50, height: 50 }} aria-label="avatar" src="/assets/user.png">
                             </Avatar>
                         </Grid>
                         <Grid item xs={11} sx={{ border: '0px solid red' }}>
-                            <Grid container xs={12} sx={{ border: '0px solid black' }} direction="row">
+                            <Grid container sx={{ border: '0px solid black' }} direction="row">
                                 <Typography variant="body1">USER:</Typography>
                                 <Typography sx={{ ml: 1 }} variant="body1" color='grey'>Today at 5:42PM</Typography>
                             </Grid>

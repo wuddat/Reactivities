@@ -1,15 +1,9 @@
 import { Card, CardActions, CardContent, Button, Typography, Box, Grid, IconButton, Avatar, CardHeader } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
-import LoadingButton from '@mui/lab/LoadingButton'
-import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/Expand';
 import { Activity } from '../../../app/models/activity';
-import { useStore } from '../../../app/stores/store';
-import { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ExpandMore } from '@mui/icons-material';
 
 interface Props {
     activity: Activity
@@ -17,14 +11,6 @@ interface Props {
 
 export default function ActivityListItem({ activity }: Props) {
 
-    const { activityStore } = useStore();
-    const [target, setTarget] = useState('');
-    const { deleteActivity, loading } = activityStore;
-
-    function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
-        setTarget(e.currentTarget.name);
-        deleteActivity(id);
-    }
 
     return (
         <Box sx={{ flexGrow: 1, mb:2 }}>

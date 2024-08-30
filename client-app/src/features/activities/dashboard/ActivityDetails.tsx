@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid } from '@mui/material/';
+import { Box, Grid } from '@mui/material/';
 import { useStore } from '../../../app/stores/store';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { observer } from 'mobx-react-lite';

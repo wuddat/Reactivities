@@ -16,7 +16,6 @@ export default function LoadingComponent({ loading = true, content = 'Loading...
             alignItems: 'center',      // Vertically center
             height: '100vh',           // Full viewport height
             width: '100vw',            // Full viewport width
-            backgroundColor: '#eee' // Optional: background color for visibility
         }}>
             <LoadingButton
                 loading={loading}
