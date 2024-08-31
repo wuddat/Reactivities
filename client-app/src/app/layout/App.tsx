@@ -4,6 +4,7 @@ import { Container, CssBaseline, Box } from '@mui/material/';
 import { observer } from 'mobx-react-lite';
 import { Outlet, useLocation } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function App() {
         ? 'linear-gradient(to bottom right, #003d3d, #00ffff)' // Gradient for HomePage
         : '#eee', // Background color for other pages>
     }}>
+      <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
       {location.pathname === '/' ? <HomePage /> : (
         <>
           <CssBaseline />

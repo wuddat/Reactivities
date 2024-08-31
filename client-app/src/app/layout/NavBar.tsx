@@ -25,6 +25,13 @@ export default function NavBar() {
                         sx={{ flexGrow: 1, color: "white" }}>
                         Activities
                     </Typography>
+                    <Typography
+                        variant="h6"
+                        component="a"
+                        href='/errors'
+                        sx={{ flexGrow: 1, color: "white" }}>
+                        Errors
+                    </Typography>
                     <Button
                         component='a'
                         href="/createActivity"
