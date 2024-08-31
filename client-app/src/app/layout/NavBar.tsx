@@ -1,5 +1,6 @@
 import { IconButton, Button, Typography, Toolbar, Box, AppBar } from '@mui/material/';
 import HouseIcon from '@mui/icons-material/House';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 
 export default function NavBar() {
     return (
@@ -15,21 +16,29 @@ export default function NavBar() {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-                        <HouseIcon />
+                        <Diversity3Icon />
                     </IconButton>
 
                     <Typography
                         variant="h6"
                         component="a"
                         href='/activities'
-                        sx={{ flexGrow: 1, color: "white" }}>
+                        sx={{
+                            textDecoration: 'none',
+                            color: "white",
+                            flexGrow: 1
+                        }}>
                         Activities
                     </Typography>
                     <Typography
                         variant="h6"
                         component="a"
                         href='/errors'
-                        sx={{ flexGrow: 1, color: "white" }}>
+                        sx={{
+                            textDecoration: 'none',
+                            color: "white",
+                            flexGrow: 20
+                        }}>
                         Errors
                     </Typography>
                     <Button
