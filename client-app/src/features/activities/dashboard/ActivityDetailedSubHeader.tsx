@@ -22,7 +22,7 @@ export default observer(function ActivityDetailedSubHeader({ activity }: Props) 
                     <Grid item xs={3} alignItems="center" justifyContent="left" sx={{ m: 0, p: 0 }}>
                         <Button variant='contained' disabled color='error'>Cancel attendance</Button></Grid>
                     <Grid item xs={6} container alignItems="center" justifyContent="flex-end" sx={{ m: 0, p: 0 }}>
-                        <Button variant='contained' color='warning'>Manage Event</Button></Grid>
+                        <Button component="a" href={`/manage/${activity.id}`} variant='contained' color='warning'>Manage Event</Button></Grid>
                 </Grid></CardActions>
         </Card >
 

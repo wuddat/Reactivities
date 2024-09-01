@@ -5,6 +5,8 @@ import { observer } from 'mobx-react-lite';
 import { Outlet, useLocation } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
 import { ToastContainer } from 'react-toastify';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   const location = useLocation();
@@ -16,6 +18,7 @@ function App() {
         ? 'linear-gradient(to bottom right, #003d3d, #00ffff)' // Gradient for HomePage
         : '#eee', // Background color for other pages>
     }}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
       {location.pathname === '/' ? <HomePage /> : (
         <>
@@ -26,6 +29,7 @@ function App() {
           </Container >
         </>
       )}
+      </LocalizationProvider>
     </ Box>
   );
 }
