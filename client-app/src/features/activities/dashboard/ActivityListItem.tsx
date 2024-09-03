@@ -19,7 +19,7 @@ export default function ActivityListItem({ activity }: Props) {
                     <Card sx={{ flexGrow: 1 }}>
                         <CardHeader as={Link} to={`/activities/${activity.id}`} sx={{ mb: 3 }}
                             avatar={
-                                <Avatar sx={{ width: 100, height: 100 }} aria-label="avatar" src="/assets/user.png">
+                                <Avatar sx={{ width: 100, height: 100 }} src="/assets/user.png">
 
                                 </Avatar>
                             }

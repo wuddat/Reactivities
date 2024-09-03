@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to bottom right, #003d3d, #00ffff);
+    background: linear-gradient(to bottom right, #1243ad, #008080);
 }
 
 .react-calendar {
@@ -24,4 +24,8 @@ body {
 
 .react-calendar__month-view__days__day--weekend {
     color: teal;
+}
+
+.MuiAppBar-root {
+    background: linear-gradient(to right, #1243ad, #008080);
 }

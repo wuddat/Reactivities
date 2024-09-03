@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 
 
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <StoreContext.Provider value={store}>

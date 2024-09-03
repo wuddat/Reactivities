@@ -1,6 +1,9 @@
 import { Button, Container, Grid, Typography } from "@mui/material";
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useStore } from "../../app/stores/store";
+import LoginForm from "../users/LoginForm";
+import RegisterForm from "../users/RegisterForm";
 
 
 // Augment the palette to include an white color
@@ -33,6 +36,9 @@ const theme = createTheme({
 });
 
 export default function HomePage() {
+
+    const { userStore, modalStore } = useStore();
+
     return (<>
         <Container sx={{
             display: 'flex',
@@ -41,30 +47,63 @@ export default function HomePage() {
             height: '100vh',           // Full viewport height
             width: '100vw',            // Full viewport width
         }}>
-            <Grid container spacing={3} direction='column' sx={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                textAlign: 'center'
-            }}>
-                <Grid item xs={12} container sx={{
+            <ThemeProvider theme={theme}>
+                <Grid container spacing={3} direction='column' sx={{
                     alignItems: 'center',
                     justifyContent: 'center',
                     textAlign: 'center'
                 }}>
-                    <Grid item xs={1}>
-                        <Diversity3Icon sx={{ fontSize: 100, color: 'white' }} />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Typography variant='h1' color='white'>Reactivities</Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ mt: 4 }}>
-                        <Typography variant="h4" color="white">Welcome to Reactivities</Typography>
-                        <ThemeProvider theme={theme}>
-                            <Button variant="contained" size="large" color='light' sx={{ mt: 1 }} componenent="a" href="/activities">Take me to the Activities!</Button>
-                        </ThemeProvider>
+                    <Grid item xs={12} container sx={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}>
+                        <Grid item xs={1}>
+                            <Diversity3Icon sx={{ fontSize: 100, color: 'white' }} />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography variant='h1' color='white'>Reactivities</Typography>
+                        </Grid>
+
+                        <Grid container item xs={12} spacing={2} sx={{ mt: 2, justifyContent: 'center' }}>
+                            {userStore.isLoggedIn ? (
+                                <>
+                                    <Typography variant="h4" color="white">Welcome to Reactivities</Typography>
+                                    <Button variant="contained" size="large" color='light' sx={{ mt: 1 }} href="/activities">Go to Activities</Button>
+
+                                </>
+                            ) : (
+                                <>
+                                    <Grid item xs={6}>
+                                        <Button
+                                            fullWidth
+                                            variant="outlined"
+                                            size="large"
+                                            sx={{ fontSize: '1.5rem', flexGrow: 1 }}
+                                            color='light'
+                                            onClick={() => modalStore.openModal(<LoginForm />)}
+                                        >
+                                            Login
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Button
+                                            fullWidth
+                                            variant="outlined"
+                                            size="large"
+                                            sx={{ fontSize: '1.5rem' }}
+                                            color='light'
+                                            onClick={() => modalStore.openModal(<RegisterForm />)}
+                                        >
+                                            Register
+                                        </Button>
+                                    </Grid>
+                                </>
+                            )}
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </ThemeProvider>
         </Container >
     </>
     );

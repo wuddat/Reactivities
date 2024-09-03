@@ -1,9 +1,11 @@
 using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [AllowAnonymous] //Allow usage without necessary permissions/access
     public class ActivitiesController : BaseApiController
     {
         [HttpGet] //api/activities

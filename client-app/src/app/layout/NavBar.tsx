@@ -1,8 +1,26 @@
-import { IconButton, Button, Typography, Toolbar, Box, AppBar } from '@mui/material/';
-import HouseIcon from '@mui/icons-material/House';
+import { IconButton, Button, Typography, Toolbar, Box, AppBar, MenuItem, Menu, Avatar } from '@mui/material/';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import PowerIcon from '@mui/icons-material/PowerSettingsNew';
+import { useStore } from '../stores/store';
+import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
-export default function NavBar() {
+export default observer(function NavBar() {
+
+    const { userStore: { user, logout } } = useStore();
+    const [auth, setAuth] = useState(true);
+    const [anchorEl, setAnchorEl] = useState(null);
+
+
+    const handleMenu = (event: MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <Box sx={{ flexGrow: 1, mb: 2 }}>
             <AppBar position="sticky" sx={{ pl: 5, pr: 5 }}>
@@ -13,7 +31,6 @@ export default function NavBar() {
                         size="large"
                         edge="start"
                         color="inherit"
-                        aria-label="menu"
                         sx={{ mr: 2 }}
                     >
                         <Diversity3Icon />
@@ -47,9 +64,38 @@ export default function NavBar() {
                         color="success"
                         variant="contained"
                     >Add New Activity</Button>
-
+                    {auth && (
+                        <>
+                            <IconButton
+                                size="large"
+                                onClick={handleMenu}
+                                color="inherit"
+                            >
+                                <Avatar src={user?.image || "/assets/user.png"}>
+                                </Avatar>
+                            </IconButton>{user?.displayName}
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem divider component='a' href={`/profile/${user?.username}`}><AccountCircle />Profile</MenuItem>
+                                <MenuItem onClick={logout}><PowerIcon />Logout</MenuItem>
+                            </Menu>
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
         </Box>
     );
-}
+})
