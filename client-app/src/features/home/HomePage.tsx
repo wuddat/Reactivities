@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography, Stack } from "@mui/material";
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useStore } from "../../app/stores/store";
@@ -67,11 +67,11 @@ export default function HomePage() {
 
                         <Grid container item xs={12} spacing={2} sx={{ mt: 2, justifyContent: 'center' }}>
                             {userStore.isLoggedIn ? (
-                                <>
+                                <Stack>
                                     <Typography variant="h4" color="white">Welcome to Reactivities</Typography>
-                                    <Button variant="contained" size="large" color='light' sx={{ mt: 1 }} href="/activities">Go to Activities</Button>
+                                    <Button variant="outlined" size="large" color='light' sx={{ mt: 1 }} href="/activities">Go to Activities</Button>
 
-                                </>
+                                </Stack>
                             ) : (
                                 <>
                                     <Grid item xs={6}>

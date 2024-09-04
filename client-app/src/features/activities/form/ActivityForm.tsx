@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from "@mui/icons-material/Send";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { useNavigate, useParams } from "react-router-dom";
-import { Activity } from "../../../app/models/activity";
+import { ActivityFormValues } from "../../../app/models/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { Formik } from "formik";
 import * as Yup from 'yup';
@@ -16,28 +16,23 @@ import { v4 as uuid } from 'uuid';
 
 export default observer(function ActivityForm() {
     const { activityStore } = useStore();
-    const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore;
+    const { createActivity, updateActivity,  loadActivity, loadingInitial } = activityStore;
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [activity, setActivity] = useState<Activity>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: '',
-        city: '',
-        venue: ''
-    });
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
     useEffect(() => {
-        if (id) loadActivity(id).then(activity => setActivity(activity!))
+        if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)))
     }, [id, loadActivity]);
 
-    const handleFormSubmit = (activity: Activity) => {
+    const handleFormSubmit = (activity: ActivityFormValues) => {
         if (!activity.id) {
-            activity.id = uuid();
-            createActivity(activity).then(() => navigate(`/activities/${activity.id}`))
+            let newActivity = {
+                ...activity,
+                id: uuid()
+            };
+            createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
         } else {
             updateActivity(activity).then(() => navigate(`/activities/${activity.id}`))
         }
@@ -65,7 +60,7 @@ export default observer(function ActivityForm() {
 
     return (
         <>
-            <Box sx={{ backgroundColor: "white", borderTop: '1px solid lightgrey', padding: 1 }}>
+            <Box sx={{ backgroundColor: "white", borderTop: '1px solid lightgrey', borderBottom: '1px solid light grey', padding: 1 }}>
                 <Typography variant="h5" component="h1" color="teal">Activity Details</Typography>
             </Box>
             <Formik
@@ -80,26 +75,17 @@ export default observer(function ActivityForm() {
                         sx={{
                             display: "flex",
                             flexDirection: 'column',
-                            backgroundColor: 'white'
+                            backgroundColor: 'white',
+
                         }}
                         noValidate
                         autoComplete="off"
                         onSubmit={handleSubmit}
                     >
-                        <Box sx={{ display: "flex", justifyContent: "space-between", m: 1 }}>
+                        <Box sx={{ m: 1 }}>
                             <FormikInputField
                                 name="title"
                                 label="Title" />
-                            <Button
-                                sx={{ p: 0, m: 0 }}
-                                variant="outlined"
-                                color="error"
-                                size="small"
-                                component='a'
-                                href='/activities'
-                            >
-                                X
-                            </Button>
                         </Box>
                         <Box sx={{ m: 1 }}>
                             <FormikTextArea
@@ -140,21 +126,34 @@ export default observer(function ActivityForm() {
                                 name="venue"
                                 label="Venue" />
                         </Box>
-                        <Box sx={{ display: 'flex', flexDirection: "row" }}>
-                            <LoadingButton
-                                endIcon={<SendIcon />}
-                                loading={loading}
-                                loadingPosition="end"
-                                sx={{ flex: 1 }}
-                                variant="contained"
-                                type="submit"
-                                disabled={isSubmitting || !dirty || !isValid}
-                            >
-                                <span>Submit</span>
-                            </LoadingButton>
-                        </Box>
+                        <Grid container sx={{ mb: 2, justifyContent: 'right' }} spacing={3} >
+                            <Grid item xs={3}>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    color="error"
+                                    component='a'
+                                    href='/activities'
+                                >
+                                    Cancel
+                                </Button>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <LoadingButton
+                                    fullWidth
+                                    endIcon={<SendIcon />}
+                                    loading={isSubmitting}
+                                    loadingPosition="end"
+                                    variant="contained"
+                                    type="submit"
+                                    disabled={isSubmitting || !dirty || !isValid}
+                                >
+                                    <span>Submit</span>
+                                </LoadingButton>
+                            </Grid>
+                        </Grid>
                     </Box>
                 )}
-            </Formik>
+            </Formik >
         </>);
 });

@@ -1,4 +1,4 @@
-import { IconButton, Button, Typography, Toolbar, Box, AppBar, MenuItem, Menu, Avatar } from '@mui/material/';
+import { IconButton, Button, Typography, Toolbar, Box, AppBar, MenuItem, Menu, Avatar, Stack, Divider } from '@mui/material/';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PowerIcon from '@mui/icons-material/PowerSettingsNew';
@@ -35,37 +35,40 @@ export default observer(function NavBar() {
                     >
                         <Diversity3Icon />
                     </IconButton>
-
-                    <Typography
-                        variant="h6"
-                        component="a"
-                        href='/activities'
-                        sx={{
-                            textDecoration: 'none',
-                            color: "white",
-                            flexGrow: 1
-                        }}>
-                        Activities
-                    </Typography>
-                    <Typography
-                        variant="h6"
-                        component="a"
-                        href='/errors'
-                        sx={{
-                            textDecoration: 'none',
-                            color: "white",
-                            flexGrow: 20
-                        }}>
-                        Errors
-                    </Typography>
-                    <Button
-                        component='a'
-                        href="/createActivity"
-                        color="success"
-                        variant="contained"
-                    >Add New Activity</Button>
+                    <Stack
+                        direction="row"
+                        divider={<Divider orientation="vertical" flexItem />}
+                        spacing={2}
+                    >
+                        <Typography
+                            variant="h6"
+                            component="a"
+                            href='/activities'
+                            sx={{
+                                textDecoration: 'none',
+                                color: "white"
+                            }}>
+                            Activities
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            component="a"
+                            href='/errors'
+                            sx={{
+                                textDecoration: 'none',
+                                color: "white"
+                            }}>
+                            Errors
+                        </Typography>
+                        <Button
+                            component='a'
+                            href="/createActivity"
+                            color="success"
+                            variant="contained"
+                        >Add New Activity</Button>
+                    </Stack>
                     {auth && (
-                        <>
+                        <Stack direction="row" sx={{ alignItems: 'center', marginLeft: "auto", }}>
                             <IconButton
                                 size="large"
                                 onClick={handleMenu}
@@ -92,7 +95,7 @@ export default observer(function NavBar() {
                                 <MenuItem divider component='a' href={`/profile/${user?.username}`}><AccountCircle />Profile</MenuItem>
                                 <MenuItem onClick={logout}><PowerIcon />Logout</MenuItem>
                             </Menu>
-                        </>
+                        </Stack>
                     )}
                 </Toolbar>
             </AppBar>

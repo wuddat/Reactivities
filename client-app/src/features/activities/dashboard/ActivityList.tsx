@@ -16,7 +16,7 @@ export default observer(function ActivityList() {
                     <Typography sx={{ color: 'teal', m: 2 }} variant="subtitle2" component='h2'>{group}</Typography>
 
                     {activities.map(activity => (
-                        <ActivityListItem key={activity.id} activity={activity} />
+                        <ActivityListItem key={activity.id} activity={activity} attendees={activity.attendees!} />
                     ))}
                 </Fragment>
             ))}

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Activity } from "../../../app/models/activity";
 import { Typography, Box } from '@mui/material/';
+import { Link } from 'react-router-dom';
 
 interface Props {
     activity: Activity
@@ -9,13 +10,15 @@ interface Props {
 
 
 export default observer(function ActivityDetailedHeader({ activity }: Props) {
+
+
     const imageUrl = `/assets/categoryImages/${activity.category}.jpg`;
 
 
 
     return (
         <Box sx={{
-            backgroundImage: `url(${imageUrl})`, 
+            backgroundImage: `url(${imageUrl})`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -38,7 +41,7 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
             <Box sx={{ zIndex: 2, width: '90%' }}>
                 <Typography variant='h2' color='white' align='center' sx={{}}>{activity.title}</Typography>
                 <Typography variant='body1' color='white' align='center' sx={{}}>{activity.date}</Typography>
-                <Typography variant='body1' color='white' align='right' sx={{ position: 'relative', top: '7em' }}>Hosted by: anonymous</Typography>
+                <Typography variant='body1' color='white' align='right' sx={{ position: 'relative', top: '7em' }}>Hosted by: <Link to={`/profiles/${activity.host?.displayName}`}>{activity.host?.displayName}</Link></Typography>
             </Box>
         </Box >
 
