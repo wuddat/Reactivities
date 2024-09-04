@@ -21,6 +21,7 @@
     "@types/react-calendar": "^4.1.0",
     "@types/yup": "^0.32.0",
     "axios": "^1.7.5",
+    "cloudinary": "^2.4.0",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
