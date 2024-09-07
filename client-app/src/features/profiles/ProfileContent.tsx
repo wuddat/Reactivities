@@ -3,6 +3,7 @@ import { Tabs, Tab, Box, Typography } from '@mui/material';
 import ProfilePhotos from './ProfilePhotos';
 import { Profile } from '../../app/models/profile';
 import { observer } from 'mobx-react-lite';
+import ProfileAbout from './ProfileAbout';
 
 interface Panel {
     menuItem: string;
@@ -18,7 +19,7 @@ interface Props {
 export default observer(function ProfileContent({ profile }: Props) {
 
     const panels: Panel[] = [
-        { menuItem: 'About', render: <Typography>About Content</Typography> },
+        { menuItem: 'About', render: <ProfileAbout /> },
         { menuItem: 'Photos', render: <ProfilePhotos profile={profile} /> },
         { menuItem: 'Events', render: <Typography>Events Content</Typography> },
         { menuItem: 'Followers', render: <Typography>Followers Content</Typography> },

@@ -22,7 +22,9 @@ export default observer(function ProfileCard({ profile }: Props) {
                 </CardActionArea>
                 <CardContent>
                     <Typography gutterBottom variant='h5'>{profile.displayName}</Typography>
-                    <Typography variant='body2' sx={{ color: 'text.secondary' }}>profile bio here</Typography>
+                    <Typography variant='body2' sx={{
+                        color: 'text.secondary', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+                    }}>{profile.bio}</Typography>
                 </CardContent>
                 <CardActions>
                     <Stack direction="row" spacing={2}>

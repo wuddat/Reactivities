@@ -9,7 +9,7 @@ interface FormikInputFieldProps {
 
 export default function FormikInputField({ label, ...props }: FormikInputFieldProps) {
     return (
-        <Grid sx={{ m: 1 }} >
+        <Grid sx={{ mt: 1, mb: 1 }} >
             <Field name={props.name}>
                 {({ field, meta }: FieldProps) => (
                     <TextField
