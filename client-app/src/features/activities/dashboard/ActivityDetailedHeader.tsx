@@ -26,7 +26,7 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             width: '100%',
-            height: '50%',
+            minHeight: '300px',
             position: 'relative',
         }}>
             <Box sx={{
@@ -41,7 +41,13 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
             <Box sx={{ zIndex: 2, width: '90%' }}>
                 <Typography variant='h2' color='white' align='center' sx={{}}>{activity.title}</Typography>
                 <Typography variant='body1' color='white' align='center' sx={{}}>{activity.date}</Typography>
-                <Typography variant='body1' color='white' align='right' sx={{ position: 'relative', top: '7em' }}>Hosted by: <Link to={`/profiles/${activity.host?.displayName}`}>{activity.host?.displayName}</Link></Typography>
+                <Typography variant='body1' color='white' align='right' sx={{
+                    position: 'absolute',
+                    bottom: '0.5em',
+                    right: '0.5em'
+                }}>
+                    Hosted by: <Link to={`/profiles/${activity.host?.displayName}`} style={{ color: 'white' }}>{activity.host?.displayName}</Link>
+                </Typography>
             </Box>
         </Box >
 

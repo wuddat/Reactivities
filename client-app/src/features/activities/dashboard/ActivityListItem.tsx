@@ -50,6 +50,7 @@ export default function ActivityListItem({ activity, attendees }: Props) {
                                 Event is currently cancelled
                             </Alert>
                         )}
+
                         <CardHeader sx={{ mb: 0 }}
                             avatar={
                                 <Link href={`/profiles/${activity.host?.username}`}><Avatar sx={{ width: 100, height: 100 }} src={activity.host?.image || '/assets/user.png'} /></Link>

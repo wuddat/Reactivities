@@ -32,6 +32,7 @@ function App() {
       background: location.pathname === '/'
         ? 'background: linear-gradient(to bottom right, #1243ad, #008080)' // Gradient for HomePage
         : '#eee', // Background color for other pages>
+      overflow: 'auto',
     }}>
       <ModalContainer />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
