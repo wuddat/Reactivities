@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, Button, Typography, Box, Grid, IconButton, Avatar, CardHeader, Alert, Icon, Stack, Divider } from '@mui/material/';
+import { Card, CardActions, CardContent, Button, Typography, Box, Grid, IconButton, Avatar, CardHeader, Alert, Icon, Stack, Divider, Link } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
@@ -24,16 +24,35 @@ export default function ActivityListItem({ activity, attendees }: Props) {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Card sx={{ flexGrow: 1 }}>
-                        {activity.isCancelled &&
-                            <Grid component="div" sx={{ m: 1 }} >
-                                <Alert variant="outlined" severity="error">
-                                    Event is currently cancelled
-                                </Alert>
-                            </Grid>
+                        {activity.isCancelled && activity.isHost &&
+                            <Stack direction="row" sx={{
+                                alignItems: "center",
+                            }}>
+                                <Grid item xs={6}>
+                                    <Alert variant="filled" color="warning" icon={<StarIcon />}>
+                                        You are the Host!
+                                    </Alert>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Alert variant="filled" severity="error">
+                                        Event is currently cancelled
+                                    </Alert>
+                                </Grid>
+                            </Stack>
                         }
+                        {activity.isHost && !activity.isCancelled && (
+                            <Alert variant="filled" color="warning" icon={<StarIcon />}>
+                                You are the Host!
+                            </Alert>
+                        )}
+                        {!activity.isHost && activity.isCancelled && (
+                            <Alert variant="filled" severity="error">
+                                Event is currently cancelled
+                            </Alert>
+                        )}
                         <CardHeader sx={{ mb: 0 }}
                             avatar={
-                                <Avatar sx={{ width: 100, height: 100 }} src="/assets/user.png" />
+                                <Link href={`/profiles/${activity.host?.username}`}><Avatar sx={{ width: 100, height: 100 }} src={activity.host?.image || '/assets/user.png'} /></Link>
                             }
                             action={<Box></Box>}
                             title={<Typography variant="h5">{activity.title}</Typography>}
@@ -42,7 +61,7 @@ export default function ActivityListItem({ activity, attendees }: Props) {
                                     <Grid container spacing={0}>
                                         <Grid item xs={8}>
                                             <Typography variant="body2">{activity.venue}, {activity.city}</Typography>
-                                            <Typography gutterBottom fontSize={'.8em'}>Hosted by {activity.host?.displayName}</Typography>
+                                            <Typography gutterBottom fontSize={'.8em'}>Hosted by <Link href={`/profiles/${activity.host?.username}`} color="textPrimary">{activity.host?.displayName}</Link></Typography>
                                         </Grid>
                                     </Grid>
                                 </Box>}
@@ -74,24 +93,20 @@ export default function ActivityListItem({ activity, attendees }: Props) {
                         <CardActions sx={{}}>
                             <Grid container spacing={2}>
                                 <Grid item xs={3} container alignItems="center">
-                                    {activity.isGoing && !activity.isHost && (
-                                        <Alert variant="filled" color="success" icon={<FavoriteIcon />} sx={{ m: 0, pl: 1, pt: 0, pb: 0 }}>
-                                            <Typography sx={{ pr: 1 }} fontSize={'.8em'}>You are attending!</Typography>
+                                    {activity.isGoing && (
+                                        <Alert variant="outlined" color="success" icon={<FavoriteIcon />} sx={{ m: 0, pl: 1, pt: 0, pb: 0, alignItems: 'center' }}>
+                                            <Typography sx={{ pr: 1, }} fontSize={'.8em'}>You & {attendees.length - 1} others</Typography>
                                         </Alert>
                                     )}
-                                    {!activity.isGoing && (
-                                        <IconButton aria-label="add to favorites">
+                                    {!activity.isGoing && !activity.isHost && (
+                                        <IconButton >
                                             <FavoriteIcon /><Typography fontSize={'.5em'} sx={{ ml: 1 }}>{attendees.length} {attendees.length === 1 ? 'Person' : 'People'} going!</Typography>
                                         </IconButton>
                                     )}
-                                    {activity.isHost && (
-                                        <Alert variant="filled" color="warning" icon={<StarIcon />} sx={{ m: 0, pl: 1, pt: 0, pb: 0 }}>
-                                            <Typography sx={{ pr: 1 }} fontSize={'.8em'}>You are the Host!</Typography>
-                                        </Alert>
-                                    )}
+
                                 </Grid>
                                 <Grid item xs={3} container alignItems="center" justifyContent="left">
-                                    <IconButton aria-label="share">
+                                    <IconButton >
                                         <ShareIcon /> <Typography fontSize={'.5em'} sx={{ ml: 1 }}>invite a friend</Typography>
                                     </IconButton>
                                 </Grid>
