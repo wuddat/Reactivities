@@ -9,22 +9,34 @@ interface Props {
 }
 
 export default observer(function ActivityAttendeesList({ attendees }: Props) {
+
+    
     return (
         <Grid container spacing={2}>
-            {attendees.map(attendee => (
-                <Grid item key={attendee.username}>
-                    <HoverCard
-                        key={`${attendee.username}hovercard`}
-                        baseContent={
-                            <Grid item key={attendee.username}>
-                                <Avatar alt={attendee.username} src={attendee.image || '/assets/user.png'} component='a' href={`/profiles/${attendee.username}`} />
+            {attendees.map(attendee => {
+                return (
+                    <Grid item key={attendee.username}>
+                        <HoverCard
+                            key={`${attendee.username}hovercard`}
+                            baseContent={<Grid item key={attendee.username}>
+                                {attendee.following ?
+                                    <Avatar
+                                        alt={attendee.username}
+                                        src={attendee.image || '/assets/user.png'} component='a' href={`/profiles/${attendee.username}`}
+                                        sx={{ border: '2px solid rgb(25, 118, 210)' }}
+                                    /> :
+                                    <Avatar
+                                        alt={attendee.username}
+                                        src={attendee.image || '/assets/user.png'} component='a' href={`/profiles/${attendee.username}`}
+                                    />
+                                }
                             </Grid>}
-                        hoverContent={<ProfileCard profile={attendee} />}
-                    />
-                </Grid>
+                            hoverContent={<ProfileCard profile={attendee} />} />
+                    </Grid>
 
 
-            ))}
+                );
+            })}
         </Grid>
     )
 

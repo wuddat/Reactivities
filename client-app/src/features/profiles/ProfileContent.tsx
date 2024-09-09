@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+
 import { Tabs, Tab, Box, Typography } from '@mui/material';
 import ProfilePhotos from './ProfilePhotos';
 import { Profile } from '../../app/models/profile';
 import { observer } from 'mobx-react-lite';
 import ProfileAbout from './ProfileAbout';
+import ProfileFollowings from './ProfileFollowings';
+import { useStore } from '../../app/stores/store';
 
 interface Panel {
     menuItem: string;
@@ -17,24 +19,20 @@ interface Props {
 
 
 export default observer(function ProfileContent({ profile }: Props) {
+    const { profileStore } = useStore();
 
     const panels: Panel[] = [
         { menuItem: 'About', render: <ProfileAbout /> },
         { menuItem: 'Photos', render: <ProfilePhotos profile={profile} /> },
         { menuItem: 'Events', render: <Typography>Events Content</Typography> },
-        { menuItem: 'Followers', render: <Typography>Followers Content</Typography> },
-        { menuItem: 'Following', render: <Typography>Following Content</Typography> },
+        { menuItem: 'Followers', render: <ProfileFollowings /> },
+        { menuItem: 'Following', render: <ProfileFollowings /> },
     ];
 
-
-    const [activeTab, setActiveTab] = useState<number>(0);
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setActiveTab(newValue);
-    };
+    const activeTab = profileStore.activeTab;
 
     return (
-        <Box display="flex" width="100%" sx={{ backgroundColor: "white", p: 2, border: "1px solid lightgray", }}>
+        <Box display="flex" width="100%" minHeight="300px" sx={{ backgroundColor: "white", p: 2, border: "1px solid lightgray", }}>
             {/* Left side content rendering */}
             <Box flexGrow={1} overflow="auto">
                 {panels[activeTab].render}
@@ -43,11 +41,12 @@ export default observer(function ProfileContent({ profile }: Props) {
             {/* Right side tab menu */}
             <Tabs
                 value={activeTab}
-                onChange={handleChange}
+                onChange={(_, newVal) => profileStore.setActiveTab(newVal)}
                 orientation="vertical"
                 sx={{
                     borderLeft: 1, borderColor: 'divider', alignItems: 'flex-end', minWidth: '100px',
                 }}
+
             >
                 {panels.map((panel, index) => (
                     <Tab key={index} label={panel.menuItem} />

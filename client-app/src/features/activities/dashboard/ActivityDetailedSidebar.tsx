@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { Activity } from "../../../app/models/activity";
-import { Card, CardContent, Button, Typography, Grid, Divider, Avatar } from '@mui/material/';
+import { Card, CardContent, Typography, Grid, Divider, Avatar } from '@mui/material/';
 import StarIcon from '@mui/icons-material/Star';
+import FollowButton from '../../profiles/FollowButton';
 
 
 interface Props {
@@ -39,7 +40,7 @@ export default observer(function ActivityDetailedSidebar({ activity: { attendees
                             <Grid item xs container direction='column' spacing={2}>
                                 <Grid item xs>
                                     <Typography variant="body1">{attendee.displayName}</Typography>
-                                    <Button size="small" sx={{ color: "orange", p: 0, m: 0 }}>Following</Button>
+                                    <FollowButton profile={attendee} />
                                 </Grid>
                             </Grid>
                             {attendee.username === host?.username &&

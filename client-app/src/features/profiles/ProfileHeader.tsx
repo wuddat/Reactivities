@@ -1,6 +1,7 @@
-import { Container, Grid, Avatar, Stack, Typography, Divider, Button } from "@mui/material";
+import { Grid, Avatar, Typography, Divider } from "@mui/material";
 import { Profile } from "../../app/models/profile";
 import { observer } from "mobx-react-lite";
+import FollowButton from "./FollowButton";
 
 interface Props {
     profile: Profile;
@@ -18,18 +19,18 @@ export default observer(function ProfileHeader({ profile }: Props) {
             </Grid>
             <Grid item container xs={4} sx={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Grid item xs={6} sx={{ mb: 1 }}>
-                    <Typography variant="h3" align="center">5</Typography>
+                    <Typography variant="h3" align="center">{profile.followersCount}</Typography>
                     <Typography variant="subtitle2" align="center" sx={{ m: -1, p: 0 }}>Followers</Typography>
                 </Grid>
                 <Grid item xs={6} sx={{ mb: 1 }}>
-                    <Typography variant="h3" align="center">42</Typography>
+                    <Typography variant="h3" align="center">{profile.followingCount}</Typography>
                     <Typography variant="subtitle2" align="center" sx={{ m: -1, p: 0 }}>Following</Typography>
                 </Grid>
-                <Grid item xs={12} sx={{ mb: 2 }}>
+                <Grid item xs={12} >
                     <Divider />
                 </Grid>
                 <Grid item xs={12} >
-                    <Button variant="contained" fullWidth>Following</Button>
+                    <FollowButton profile={profile} />
                 </Grid>
             </Grid>
         </Grid>
