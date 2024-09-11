@@ -1,11 +1,12 @@
 
-import { Tabs, Tab, Box, Typography } from '@mui/material';
+import { Tabs, Tab, Box } from '@mui/material';
 import ProfilePhotos from './ProfilePhotos';
 import { Profile } from '../../app/models/profile';
 import { observer } from 'mobx-react-lite';
 import ProfileAbout from './ProfileAbout';
 import ProfileFollowings from './ProfileFollowings';
 import { useStore } from '../../app/stores/store';
+import ProfileActivities from './ProfileActivities';
 
 interface Panel {
     menuItem: string;
@@ -24,7 +25,7 @@ export default observer(function ProfileContent({ profile }: Props) {
     const panels: Panel[] = [
         { menuItem: 'About', render: <ProfileAbout /> },
         { menuItem: 'Photos', render: <ProfilePhotos profile={profile} /> },
-        { menuItem: 'Events', render: <Typography>Events Content</Typography> },
+        { menuItem: 'Events', render: <ProfileActivities /> },
         { menuItem: 'Followers', render: <ProfileFollowings /> },
         { menuItem: 'Following', render: <ProfileFollowings /> },
     ];
@@ -55,47 +56,3 @@ export default observer(function ProfileContent({ profile }: Props) {
         </Box>
     );
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Container, Grid, Avatar, Stack, Typography, Divider, Button, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-
-
-// export default function ProfileContent() {
-
-
-//     const panels = [
-//         { menuItem: 'About', render: () =>}
-//     ]
-
-
-//     return (
-
-
-//         <Grid container sx={{ alignItems: 'center', justifyContent: 'space-between' }} >
-//             <Grid item xs={8} sx={{ display: "flex", backgroundColor: "white", p: 2, border: "1px solid lightgray", minHeight: "200px" }}>
-//                 <Typography variant="body2">Events Content</Typography>
-//             </Grid>
-
-//             <Grid item xs={3} sx={{ minHeight: '200px', backgroundColor: "white", border: "1px solid lightgray" }}>
-//                 <List>
-//                     <ListItem disableGutters>
-//                         <ListItemButton>
-//                             <ListItemText primary="About" />
-//                         </ListItemButton>
-//                     </ListItem>
-//                 </List>
-//             </Grid>
-//         </Grid >
-//     )
-// }
