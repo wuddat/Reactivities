@@ -15,12 +15,22 @@ export default class CommonStore {
             token => {
                 console.log("Token updated in MOBX commonstore: ", token);
                 if (token) {
-                    localStorage.setItem('jwt', token)
+                    try {
+                        localStorage.setItem('jwt', token);
+                        console.log("Token stored in localStorage");
+                    } catch (error) {
+                        console.error("Error storing token in localStorage:", error);
+                    }
                 } else {
-                    localStorage.removeItem('jwt')
+                    try {
+                        localStorage.removeItem('jwt');
+                        console.log("Token removed from localStorage");
+                    } catch (error) {
+                        console.error("Error removing token from localStorage:", error);
+                    }
                 }
             }
-        )
+        );
     }
 
     setServerError(error: ServerError) {
