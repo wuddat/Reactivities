@@ -68,7 +68,7 @@ export default function HomePage() {
                         <Grid container item xs={12} spacing={2} sx={{ mt: 2, justifyContent: 'center' }}>
                             {userStore.isLoggedIn ? (
                                 <Stack>
-                                    <Typography variant="h4" color="white">Welcome to Reactivities</Typography>
+                                    <Typography variant="h4" color="white">An event tracking app to make planning easier!</Typography>
                                     <Button variant="outlined" size="large" color='light' sx={{ mt: 1 }} href="/activities">Go to Activities</Button>
 
                                 </Stack>
