@@ -61,4 +61,4 @@ jobs:
         with:
           app-name: 'reactapp'
           slot-name: 'Production'
-          package: ./myapp
+          package: .
