@@ -21,6 +21,12 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Clear NuGet cache
+        run: dotnet nuget locals all --clear
+
+      - name: Restore NuGet Packages
+        run: dotnet restore --force --disable-parallel
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
@@ -62,4 +68,3 @@ jobs:
           app-name: 'reactapp'
           slot-name: 'Production'
           package: .
-          
