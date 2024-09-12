@@ -8,12 +8,14 @@ export default class CommonStore {
 
     constructor() {
         makeAutoObservable(this);
+        console.log("Initial token from localStorage in commonStore:", localStorage.getItem('jwt'));
 
         reaction(
             () => this.token,
             token => {
+                console.log("Token updated in MOBX commonstore: ", token);
                 if (token) {
-                    localStorage.setItem('jwt',token)
+                    localStorage.setItem('jwt', token)
                 } else {
                     localStorage.removeItem('jwt')
                 }
@@ -26,7 +28,9 @@ export default class CommonStore {
     }
 
     setToken = (token: string | null) => {
+        console.log("2. Setting token in CommonStore:", token);
         this.token = token;
+        console.log("3. token set successfully");
     }
     setAppLoaded = () => {
         this.appLoaded = true;

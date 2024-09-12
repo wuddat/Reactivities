@@ -18,11 +18,15 @@ export default class UserStore {
     login = async (creds: UserFormValues) => {
         try {
             const user = await agent.Account.login(creds);
+            console.log("1. User token in userStore: ", user.token);
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
             router.navigate('/activities');
+            console.log("4. User identified, routing to /activities");
+            console.log("5. ", this.user?.username, " equal to ", user.username, " token saved to localStorage as: ", user.token);
             store.modalStore.closeModal();
         } catch (error) {
+            console.error("Login error:", error);
             throw error;
         }
     }
@@ -57,7 +61,7 @@ export default class UserStore {
     setImage = (image: string) => {
         if (this.user) this.user.image = image;
     }
-    setDisplayName = (name:string) => {
+    setDisplayName = (name: string) => {
         if (this.user) this.user.displayName = name;
     }
 }

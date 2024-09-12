@@ -44,10 +44,8 @@ export default class ActivityStore {
         }
         switch (predicate) {
             case 'all':
-                console.log(predicate, 'BEFORE')
                 resetPredicate();
                 this.predicate.set('all', true);
-                console.log(predicate, 'AFTER')
                 break;
             case 'isGoing':
                 resetPredicate();
