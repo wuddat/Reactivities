@@ -16,10 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: set up NodeJs
+      - name: Set up NodeJs
         uses: actions/setup-node@v3
         with:
-          node-version:'20'
+        node-version: '20'
 
       - name: Install deps and build react app
         run: |
