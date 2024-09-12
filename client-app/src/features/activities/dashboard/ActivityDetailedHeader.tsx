@@ -40,7 +40,7 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
             }} />
             <Box sx={{ zIndex: 2, width: '90%' }}>
                 <Typography variant='h2' color='white' align='center' sx={{}}>{activity.title}</Typography>
-                <Typography variant='body1' color='white' align='center' sx={{}}>{activity.date}</Typography>
+                <Typography variant='body1' color='white' align='center' sx={{}}>{activity.date.toString()}</Typography>
                 <Typography variant='body1' color='white' align='right' sx={{
                     position: 'absolute',
                     bottom: '0.5em',

@@ -14,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-        var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-        opt.Filters.Add(new AuthorizeFilter(policy));
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    opt.Filters.Add(new AuthorizeFilter(policy));
 });
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
@@ -36,8 +36,12 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<ChatHub>("/chat");
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

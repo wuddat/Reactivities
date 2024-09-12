@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Icon } from '@mui/material';
 
 
 interface Props {
@@ -24,7 +23,7 @@ export default function PhotoWidgetDropzone({ setFiles, files }: Props) {
         borderColor: 'green'
     }
 
-    const onDrop = useCallback(acceptedFiles => {
+    const onDrop = useCallback((acceptedFiles: any[]) => {
         setFiles(acceptedFiles.map((file: any) => Object.assign(file, {
             preview: URL.createObjectURL(file)
         })))

@@ -6,6 +6,7 @@ import { store } from "./store";
 import { Profile } from "../models/profile";
 import { Pagination, PagingParams } from "../models/pagination";
 
+
 export default class ActivityStore {
     activities: Activity[] = [];
     activityRegistry = new Map<string, Activity>();
@@ -37,7 +38,7 @@ export default class ActivityStore {
 
     setPredicate = (predicate: string, value: string | Date) => {
         const resetPredicate = () => {
-            this.predicate.forEach((value, key) => {
+            this.predicate.forEach((_value, key) => {
                 if (key !== 'startDate') this.predicate.delete(key);
             })
         }
@@ -77,13 +78,13 @@ export default class ActivityStore {
     }
 
     get activitiesByDate() {
-        return Array.from(this.activityRegistry.values()).sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+        return Array.from(this.activityRegistry.values()).sort((a, b) => Date.parse(a.date.toString()) - Date.parse(b.date.toString()));
     }
 
     get groupedActivities() {
         return Object.entries(
             this.activitiesByDate.reduce((activities, activity) => {
-                const date = activity.date;
+                const date = activity.date.toString().split('T')[0];
                 activities[date] = activities[date] ? [...activities[date], activity] : [activity];
                 return activities;
             }, {} as { [key: string]: Activity[] })
@@ -96,7 +97,7 @@ export default class ActivityStore {
             const result = await agent.Activities.list(this.axiosParams);
             if (Array.isArray(result.data)) {
                 result.data.forEach(activity => {
-                    activity.date = activity.date.split('T')[0];
+                    activity.date = activity.date.toString().split('T')[0];
                     runInAction(() => this.activityRegistry.set(activity.id, activity));
                     this.setActivity(activity);
                 });
@@ -145,7 +146,7 @@ export default class ActivityStore {
             activity.isHost = activity.hostUsername === user.username;
             activity.host = activity.attendees?.find(x => x.username === activity.hostUsername);
         }
-        activity.date = activity.date.split('T')[0];
+        activity.date = activity.date.toString().split('T')[0];
         this.activityRegistry.set(activity.id, activity);
     }
 

@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { Activity } from "../../../app/models/activity";
-import { Card, CardActions, Button, Grid, CardContent, Alert, Typography } from '@mui/material/';
+import { Card, CardActions, Button, Grid } from '@mui/material/';
 import { useStore } from '../../../app/stores/store';
 import { LoadingButton } from '@mui/lab';
-import StarIcon from '@mui/icons-material/Star';
 
 interface Props {
     activity: Activity

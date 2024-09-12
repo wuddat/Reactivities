@@ -2,7 +2,7 @@ import '@fontsource/roboto/400.css';
 import NavBar from './NavBar';
 import { Container, CssBaseline, Box } from '@mui/material/';
 import { observer } from 'mobx-react-lite';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
 import { ToastContainer } from 'react-toastify';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -34,6 +34,7 @@ function App() {
         : '#eee', // Background color for other pages>
       overflow: 'auto',
     }}>
+      <ScrollRestoration />
       <ModalContainer />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <ToastContainer position='bottom-right' hideProgressBar theme='colored' />

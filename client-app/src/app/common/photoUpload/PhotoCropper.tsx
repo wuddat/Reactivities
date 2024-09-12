@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Cropper } from "react-cropper";
 import 'cropperjs/dist/cropper.css'
 interface Props {

@@ -44,41 +44,49 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
             </CardContent>
 
             <Grid container direction="column" spacing={2}>
-                {commentStore.comments.map((comment, idx) => (
-                    <CardContent key={comment.id + idx}>
-                        <Grid container alignItems="center">
-                            {/* Avatar on the left side */}
-                            <Grid item>
-                                <Avatar
-                                    sx={{
-                                        width: 100,
-                                        height: '100%', // Avatar full height
-                                        marginRight: 2, // Add space between avatar and text
-                                        marginLeft: 2,
-                                    }}
-                                    aria-label="avatar"
-                                    src={comment.image || "/assets/user.png"}
-                                />
+                {commentStore.comments.map((comment, idx) => {
+                    const createdAtDate =
+                        typeof comment.createdAt === 'string'
+                            ? new Date(comment.createdAt)
+                            : comment.createdAt;
+                    const isValidDate = createdAtDate instanceof Date && !isNaN(createdAtDate.getTime());
+
+                    return (
+                        <CardContent key={comment.id + idx}>
+                            <Grid container alignItems="center">
+                                {/* Avatar on the left side */}
+                                <Grid item>
+                                    <Avatar
+                                        sx={{
+                                            width: 100,
+                                            height: '100%', // Avatar full height
+                                            marginRight: 2, // Add space between avatar and text
+                                            marginLeft: 2,
+                                        }}
+                                        aria-label="avatar"
+                                        src={comment.image || "/assets/user.png"}
+                                    />
+                                </Grid>
+                                {/* Comment details on the right side */}
+                                <Grid item xs>
+                                    <Typography
+                                        component="a"
+                                        href={`/profiles/${comment.username}`}
+                                        sx={{ fontWeight: 'bold', display: 'block' }} // Display as block for stacking
+                                    >
+                                        {comment.displayName}
+                                    </Typography>
+                                    <Typography variant="body2" color="grey">
+                                        {isValidDate ? `${formatDistanceToNow(createdAtDate)} ago..` : 'some time ago..'}
+                                    </Typography>
+                                    <Typography variant="body1" sx={{ marginTop: 1 }}>
+                                        {comment.body}
+                                    </Typography>
+                                </Grid>
                             </Grid>
-                            {/* Comment details on the right side */}
-                            <Grid item xs>
-                                <Typography
-                                    component="a"
-                                    href={`/profiles/${comment.username}`}
-                                    sx={{ fontWeight: 'bold', display: 'block' }} // Display as block for stacking
-                                >
-                                    {comment.displayName}
-                                </Typography>
-                                <Typography variant="body2" color="grey">
-                                    {formatDistanceToNow(comment.createdAt)} ago..
-                                </Typography>
-                                <Typography variant="body1" sx={{ marginTop: 1 }}>
-                                    {comment.body}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                ))}
+                        </CardContent>
+                    );
+                })}
             </Grid>
 
             <CardContent>

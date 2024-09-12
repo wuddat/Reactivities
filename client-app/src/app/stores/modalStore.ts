@@ -1,4 +1,3 @@
-import { TrendingUpOutlined } from "@mui/icons-material";
 import { makeAutoObservable } from "mobx";
 
 interface Modal {

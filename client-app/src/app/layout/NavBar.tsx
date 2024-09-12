@@ -9,11 +9,10 @@ import { observer } from 'mobx-react-lite';
 export default observer(function NavBar() {
 
     const { userStore: { user, logout } } = useStore();
-    const [auth, setAuth] = useState(true);
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
 
-    const handleMenu = (event: MouseEvent<HTMLElement>) => {
+    const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -67,36 +66,31 @@ export default observer(function NavBar() {
                             variant="contained"
                         >Add New Activity</Button>
                     </Stack>
-                    {auth && (
-                        <Stack direction="row" sx={{ alignItems: 'center', marginLeft: "auto", }}>
-                            <IconButton
-                                size="large"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <Avatar src={user?.image || "/assets/user.png"}>
-                                </Avatar>
-                            </IconButton>{user?.displayName}
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                <MenuItem divider component='a' href={`/profile/${user?.username}`}><AccountCircle />Profile</MenuItem>
-                                <MenuItem onClick={logout}><PowerIcon />Logout</MenuItem>
-                            </Menu>
-                        </Stack>
-                    )}
+                    <Stack direction="row" sx={{ alignItems: 'center', marginLeft: "auto", }}>
+                        <IconButton
+                            onClick={handleMenu}
+                        >
+                            <Avatar alt="user" src={user?.image || "/assets/user.png"} />
+                        </IconButton>{user?.displayName}
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem divider component='a' href={`/profiles/${user?.username}`}><AccountCircle />Profile</MenuItem>
+                            <MenuItem onClick={logout}><PowerIcon />Logout</MenuItem>
+                        </Menu>
+                    </Stack>
                 </Toolbar>
             </AppBar>
         </Box>

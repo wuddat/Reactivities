@@ -26,7 +26,7 @@ export default observer(function ProfileActivities() {
         loadUserActivities(profile!.username);
     }, [loadUserActivities, profile]);
 
-    const handleChange = (e: SyntheticEvent, data) => {
+    const handleChange = (_e: SyntheticEvent, data: string) => {
         loadUserActivities(profile!.username, panels[parseInt(data)].pane.key);
         setValue(data);
         // setValue(panels[data.tabIndex as number].index);

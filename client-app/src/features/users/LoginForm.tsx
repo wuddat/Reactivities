@@ -31,7 +31,7 @@ export default observer(function LoginForm() {
                                 setStatus({ error: null });
                                 setSubmitting(false);
                             })
-                            .catch(error => {
+                            .catch(_error => {
                                 setStatus({ error: 'Invalid email or password' });
                                 setSubmitting(false);
 

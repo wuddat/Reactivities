@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/store";
 import { Formik } from "formik";
 import * as Yup from 'yup';
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import FormikInputField from "../../app/common/form/FormikInputField";
 import FormikTextArea from "../../app/common/form/FormikTextArea";
 import { LoadingButton } from "@mui/lab";

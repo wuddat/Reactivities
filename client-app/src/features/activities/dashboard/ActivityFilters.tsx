@@ -4,7 +4,6 @@ import Calendar from "react-calendar";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { teal } from '@mui/material/colors';
 import { useStore } from '../../../app/stores/store';
-import { useEffect, useState } from 'react';
 
 interface Props {
 
@@ -19,7 +18,7 @@ export default observer(function ActivityFilters({ }: Props) {
     const handleClick = (q: string, a: string) => {
         setPredicate(q, a);
     }
-    
+
     return (<>
         <Card sx={{
             width: '100%',
@@ -37,7 +36,11 @@ export default observer(function ActivityFilters({ }: Props) {
             </CardContent>
             <Divider />
             <CardActionArea onClick={() => handleClick('all', 'true')}>
-                <CardContent style={{ backgroundColor: activeFilter === 'all' ? 'green' : 'white' }}>
+                <CardContent style={{
+                    backgroundColor: activeFilter === 'all' ? 'green' : 'white',
+                    color: activeFilter === 'all' ? 'white' : 'black',
+
+                }}>
                     <Grid container >
                         <Grid container spacing={2} sx={{ border: '0px solid blue' }}>
                             <Grid item xs={9} sx={{ border: '0px solid red' }}>
@@ -49,7 +52,10 @@ export default observer(function ActivityFilters({ }: Props) {
             </CardActionArea>
             <Divider />
             <CardActionArea onClick={() => handleClick('isGoing', 'true')}>
-                <CardContent style={{ backgroundColor: activeFilter === 'isGoing' ? 'green' : 'white' }}>
+                <CardContent style={{
+                    backgroundColor: activeFilter === 'isGoing' ? 'green' : 'white',
+                    color: activeFilter === 'isGoing' ? 'white' : 'black',
+                }}>
                     <Grid container >
                         <Grid container spacing={2} sx={{ border: '0px solid blue' }}>
                             <Grid item xs={9} sx={{ border: '0px solid red' }}>
@@ -61,7 +67,11 @@ export default observer(function ActivityFilters({ }: Props) {
             </CardActionArea>
             <Divider />
             <CardActionArea onClick={() => handleClick('isHost', 'true')}>
-                <CardContent style={{ backgroundColor: activeFilter === 'isHost' ? 'green' : 'white' }}>
+                <CardContent style={{
+                    backgroundColor: activeFilter === 'isHost' ? 'green' : 'white',
+                    color: activeFilter === 'isHost' ? 'white' : 'black',
+
+                }}>
                     <Grid container >
                         <Grid container spacing={2} sx={{ border: '0px solid blue' }}>
                             <Grid item xs={9} sx={{ border: '0px solid red' }}>

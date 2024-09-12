@@ -1,12 +1,10 @@
 using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
-using Application.Photos;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Photos;
 using Infrastructure.Security;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -21,7 +19,7 @@ namespace API.Extensions
             services.AddSwaggerGen();
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
             services.AddCors(opt =>
             {

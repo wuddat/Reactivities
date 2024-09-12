@@ -79,7 +79,7 @@ export default function ActivityListItem({ activity, attendees }: Props) {
                                     divider={<Divider orientation="vertical" flexItem />}
                                     spacing={2}>
                                     <Icon><CalendarMonthIcon /></Icon>
-                                    <Typography variant="body2">{activity.date}</Typography>
+                                    <Typography variant="body2">{activity.date.toString()}</Typography>
                                 </Stack>
                             </Stack>
                         </CardContent>

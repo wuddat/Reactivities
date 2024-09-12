@@ -35,7 +35,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon color='primary'><CalendarMonthIcon /></Icon>
                     </Grid>
                     <Grid item xs={8} container alignItems="left">
-                        <Typography variant="body2">{activity.date}</Typography>
+                        <Typography variant="body2">{activity.date.toString()}</Typography>
                     </Grid>
                 </Grid>
             </CardContent>
