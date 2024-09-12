@@ -15,7 +15,7 @@ export default function FormikDateTimePicker({ label, name }: FormikDateTimePick
             <Field name={name}>
                 {({ field, form }: FieldProps<any>) => {
                     // Ensure that the helperText is either a string or undefined
-                    const errorText = form.touched[name] && typeof form.errors[name] === 'string' ? form.errors[name] : undefined;
+                    const errorText = form.touched[name] && typeof form.errors[name] === 'string' ? form.errors[name] : "an error occured";
 
                     return (
                         <DateTimePicker
