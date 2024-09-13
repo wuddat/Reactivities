@@ -38,10 +38,14 @@ export default class CommonStore {
     }
 
     setToken = (token: string | null) => {
-        console.log("2. Setting token in CommonStore:", token);
-        this.token = token;
-        console.log("3. token set successfully");
+        if (token !== undefined) {
+            console.log("Setting token in CommonStore:", token);
+            this.token = token;
+        } else {
+            console.error("Received undefined token. Token not set.");
+        }
     }
+
     setAppLoaded = () => {
         this.appLoaded = true;
     }

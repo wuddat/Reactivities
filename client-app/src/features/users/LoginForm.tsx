@@ -27,6 +27,7 @@ export default observer(function LoginForm() {
                     initialValues={{ email: '', password: '', error: null }}
                     onSubmit={(values, { setStatus, setSubmitting }) => {
                         userStore.login(values)
+                            .then(() => { console.log("Form submission values: ", values) })
                             .then(() => {
                                 setStatus({ error: null });
                                 setSubmitting(false);

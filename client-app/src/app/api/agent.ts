@@ -86,7 +86,22 @@ const Activities = {
 
 const Account = {
     current: () => requests.get<User>('/account'),
-    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+    login: async (user: UserFormValues) => {
+        try {
+            // Make the POST request and capture the response
+            const response = await requests.post<User>('/account/login', user);
+
+            // Log the full response
+            console.log("Login response agentTs:", response);
+
+            // Return the response as usual
+            return response;
+        } catch (error) {
+            // Log any errors
+            console.error("Login request error:", error);
+            throw error; // Ensure the error is still thrown
+        }
+    },
     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 }
 
