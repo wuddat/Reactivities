@@ -3,6 +3,7 @@ import { User, UserFormValues } from "../models/user";
 import agent from "../api/agent";
 import { store } from "./store";
 import { router } from "../router/routes";
+import axios from "axios";
 
 export default class UserStore {
     user: User | null = null;
@@ -21,6 +22,7 @@ export default class UserStore {
             console.log("0. Login response userStore:", user);
             console.log("1. User token in userStore: ", user.token);
             store.commonStore.setToken(user.token);
+            this.setAuthHeader(user.token);
             runInAction(() => this.user = user);
             router.navigate('/activities');
             console.log("4. User identified, routing to /activities");
@@ -64,5 +66,13 @@ export default class UserStore {
     }
     setDisplayName = (name: string) => {
         if (this.user) this.user.displayName = name;
+    }
+
+    setAuthHeader = (token: string | null) => {
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        } else {
+            delete axios.defaults.headers.common['Authorization'];
+        }
     }
 }

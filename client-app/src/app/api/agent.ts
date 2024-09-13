@@ -13,6 +13,8 @@ const sleep = (delay: number) => {
     })
 }
 
+
+
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
