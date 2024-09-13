@@ -14,6 +14,7 @@ const sleep = (delay: number) => {
 }
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
@@ -92,7 +93,7 @@ const Account = {
             const response = await requests.post<User>('/account/login', user);
 
             // Log the full response
-            console.log("Login response agentTs:", response);
+            console.log("Login response:", response);
 
             // Return the response as usual
             return response;
